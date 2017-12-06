@@ -7,17 +7,17 @@
     public struct Vertex
     {
         private string _name;
-        private long _eSize;
+        private long _deg;
         private Edges _edges;
         public string Name { get => _name; } //return a name for vertex instance.
-        public long ESize { get => _eSize; } //return the number of edges for the vertex.
+        public long Degree { get => _deg; } //return the degree of the vertex.
         public Edges Edges { get => _edges; } //return the edges.
 
         public Vertex(string name, long edgesSize)
         {
             _name = name; // get the name
-            _eSize = edgesSize; //get the number of edges.
-            _edges = new Edges(_eSize); //allocate the memory and make an array of edges for this vertex
+            _deg = edgesSize; //get the degree of the vertex.
+            _edges = new Edges(_deg); //allocate the memory and make an array of edges for this vertex
         }
 
         public Vertex(string name, long edgesSize, Edges edges) : this(name, edgesSize)
@@ -27,7 +27,7 @@
 
         public void SetEdge(long index, Edge obj) //get an edge and set it to edges
         {
-            if (index >= 0 && index <= ESize)
+            if (index >= 0 && index <= Degree)
                 this._edges[index] = obj;
         }
 
@@ -40,7 +40,7 @@
 
         public override string ToString() //overriding the ToString method and return useful
         {
-            return $"Vertex {Name} with {ESize} edges.";
+            return $"Vertex {Name} with {Degree} edges.";
         }
 
         public override int GetHashCode()
