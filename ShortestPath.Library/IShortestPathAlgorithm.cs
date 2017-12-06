@@ -5,6 +5,6 @@
         void Execute();
         string[] ShortestPath();
         long GraphSize { get; set; }
-        Vertices Vertices{ get; set; }
+        Graph graph{ get; set; }
     }
 }
