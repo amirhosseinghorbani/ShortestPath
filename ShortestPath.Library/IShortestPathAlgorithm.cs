@@ -6,9 +6,9 @@ namespace ShortestPath.Library
     //Any algorithm must derive IShortestPathAlgorithm
     public interface IShortestPathAlgorithm
     {
+        string Name { get; set; }
         void Execute();
         string[] ShortestPath();
-        long GraphSize { get; set; }
         Graph graph{ get; set; }
 
         event EventHandler Start;
