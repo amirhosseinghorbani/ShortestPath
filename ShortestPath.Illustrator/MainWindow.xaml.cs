@@ -12,6 +12,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Shields.GraphViz;
+using Shields.GraphViz.Components;
+using Shields.GraphViz.Models;
+using Shields.GraphViz.Services;
+using System.Collections.Immutable;
+using System.IO;
+using System.Threading;
 
 namespace ShortestPath.Illustrator
 {
@@ -23,6 +30,11 @@ namespace ShortestPath.Illustrator
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+           
         }
     }
 }
