@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:gv="clr-namespace:Microsoft.Msagl.GraphViewerGdi;assembly=Microsoft.Msagl.GraphViewerGDI"
         xmlns:local="clr-namespace:ShortestPath.Illustrator"
         mc:Ignorable="d"
         Title="Graph - Shortest Path in a graph" Height="800" Width="1024" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FF510455" Loaded="Window_Loaded">
@@ -30,7 +31,9 @@
             <TextBlock Margin="33,48,0,6" TextWrapping="Wrap" Text="- Floyed Warshall Algorithm" Foreground="White" FontSize="18" TextDecorations="{x:Null}" Height="25"/>
         </Grid>
         <Grid x:Name="grid_graph" Margin="0" Grid.Row="1">
-            <Image x:Name="img_graph" Margin="0"/>
+            <WindowsFormsHost Name="winFormHost" Margin="0" Background="#FF510455">
+                <gv:GViewer x:Name="gViewer"></gv:GViewer>
+            </WindowsFormsHost>
         </Grid>
         <Grid x:Name="grid_matrix_control" Grid.Column="1" Margin="0" Grid.Row="1">
             <Grid.RowDefinitions>
@@ -38,18 +41,12 @@
                 <RowDefinition Height="31*"/>
             </Grid.RowDefinitions>
             <Grid x:Name="grid_matrix" Margin="0">
-                <ListView x:Name="lst_matrix" Margin="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                <DataGrid x:Name="lst_matrix" Margin="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" IsReadOnly="True"/>
             </Grid>
             <Grid x:Name="grid_control" Margin="0" Grid.Row="1">
                 <Button x:Name="btn_openFromFile" Content="Oepn Graph Matirix From File" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="171" Height="27"/>
-                <Button x:Name="btn_addToMatrix" Content="Add Item to matrix" HorizontalAlignment="Left" Margin="337,10,0,0" VerticalAlignment="Top" Width="171" Height="27"/>
-                <Label Content="* Double Click To Remove Item." HorizontalAlignment="Left" Margin="337,37,0,0" VerticalAlignment="Top" Foreground="White"/>
+                <Button x:Name="btn_addVertex" Content="Add Vertex" HorizontalAlignment="Left" Margin="395,10,0,0" VerticalAlignment="Top" Width="118" Height="27" Click="btn_addVertex_Click"/>
+                <Button x:Name="btn_addEdge" Content="Add Edge" HorizontalAlignment="Left" Margin="395,42,0,0" VerticalAlignment="Top" Width="118" Height="27"/>
             </Grid>
         </Grid>
 
