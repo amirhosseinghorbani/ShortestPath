@@ -26,6 +26,14 @@
         {
             _vertices = vertices;
         }
+        public long VertexIndex(string vertex) //return the index of vertex in the graph array.
+        {
+            for (int i = 0; i < Size; i++)
+                if (this[i].Name.ToLower().Equals(vertex.ToLower()))
+                    return i;
+            return -1;
+        }
+
         public long VertexIndex(Vertex vertex) //return the index of vertex in the graph array.
         {
             for (int i = 0; i < Size; i++)

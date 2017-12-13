@@ -6,15 +6,15 @@
         xmlns:local="clr-namespace:ShortestPath.Illustrator"
         mc:Ignorable="d"
         Title="Add new vertex" Height="200" Width="332.836" Background="#FF510455" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-    <Grid>
+    <Grid KeyDown="Grid_KeyDown">
         <TextBlock HorizontalAlignment="Left" Margin="10,22,0,0" TextWrapping="Wrap" Text="From :" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
-        <Button x:Name="btnOK" Content="OK" HorizontalAlignment="Left" Margin="224,123,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="144,123,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnOK" Content="OK" HorizontalAlignment="Left" Margin="224,123,0,0" VerticalAlignment="Top" Width="75" Click="btnOK_Click"/>
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="144,123,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,48,0,0" TextWrapping="Wrap" Text="To :" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,82,0,0" TextWrapping="Wrap" Text="Weight :" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
-        <ComboBox HorizontalAlignment="Left" Margin="99,22,0,0" VerticalAlignment="Top" Width="200"/>
-        <ComboBox HorizontalAlignment="Left" Margin="99,49,0,0" VerticalAlignment="Top" Width="200"/>
-        <TextBox x:Name="txtVertextName" HorizontalAlignment="Left" Height="23" Margin="99,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" FontSize="16" TextAlignment="Center"/>
+        <ComboBox x:Name="cmb_from" HorizontalAlignment="Left" Margin="99,22,0,0" VerticalAlignment="Top" Width="200" DropDownOpened="cmb_from_DropDownOpened" DropDownClosed="cmb_from_DropDownClosed"/>
+        <ComboBox x:Name="cmb_to" HorizontalAlignment="Left" Margin="99,49,0,0" VerticalAlignment="Top" Width="200" DropDownOpened="cmb_to_DropDownOpened" DropDownClosed="cmb_to_DropDownClosed"/>
+        <TextBox x:Name="txtWeight" HorizontalAlignment="Left" Height="23" Margin="99,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" FontSize="16" TextAlignment="Center"/>
 
     </Grid>
 </Window>

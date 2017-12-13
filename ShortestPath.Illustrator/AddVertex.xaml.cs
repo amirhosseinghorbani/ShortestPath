@@ -24,23 +24,34 @@ namespace ShortestPath.Illustrator
         }
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
-            string vertexName = txtVertextName.Text.Trim().ToUpper();
-            var graph = GPH.GetGraph();
-            graph.Header.AddVertex(vertexName);
-            List<string> edges = new List<string>();
-            for (int i = 0; i < graph.Records.Count; i++) //reset the edges weights(doesn't have a path to any vertices)
+            try
             {
-                edges.Add("Inf");
-                graph.Records[i].AddEdge("Inf");
+                string vertexName = txtVertextName.Text.Trim().ToUpper();
+                var graph = GPH.GetGraph();
+                if (!(graph.Header.Vertices.Exists(x => x.ToLower().Equals(vertexName.ToLower()))))
+                {
+                    graph.Header.AddVertex(vertexName);
+                    List<string> edges = new List<string>();
+                    for (int i = 0; i < graph.Records.Count; i++) //reset the edges weights(doesn't have a path to any vertices)
+                    {
+                        edges.Add("Inf");
+                        graph.Records[i].AddEdge("Inf");
+                    }
+                    edges.Add("0");
+                    graph.AddRecord(new GraphRecord()
+                    {
+                        VertexName = vertexName,
+                        Edges = edges
+                    });
+                    GPH.SetGraph(graph); //write it to file and save.
+                }
+                else
+                    throw new Exception("this vertex already exist.");
             }
-            edges.Add("0");
-            graph.AddRecord(new GraphRecord()
+            catch(Exception ex)
             {
-                VertexName = vertexName,
-                Edges = edges
-            });
-            GPH.SetGraph(graph); //write it to file and save.
-
+                MessageBox.Show(ex.Message, "Warning!");
+            }
             this.Close(); //close the app
         }
 

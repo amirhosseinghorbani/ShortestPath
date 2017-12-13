@@ -8,6 +8,7 @@ namespace ShortestPath.Library
     {
         private const long Z = 0;
         private const long INF = int.MaxValue;
+        private const string UnknownPath = "Unknown";
         private Graph _graph;
         public string Name
         {
@@ -45,9 +46,11 @@ namespace ShortestPath.Library
                 for (long j = 0; j < Graph.Size; j++)
                 {
                     if (i == j)
-                        Graph[i].SetEdge(j, new Edge() { To = Graph[i].Name, Weight = Z });
+                        Graph[i].SetEdge(j, new Edge() { To = Graph[j].Name, Weight = Z });
+                    if (!(Graph[i].Edges[j].Weight == 0 || Graph[i].Edges[j].Weight == INF))
+                        Paths[i, j] = Graph[i].Name;
                     else
-                        Graph[i].SetEdge(j, new Edge() { To = Graph[i].Name });
+                        Paths[i, j] = UnknownPath;
                 }
         }
 
@@ -57,6 +60,7 @@ namespace ShortestPath.Library
             OnStart(); //trigger the Start event
             for (long k = 0; k < Graph.Size; k++)
             {
+                OnStepChanged(new StepChangedEventArgs(k)); //trigger the StepChanged event
                 for (long i = 0; i < Graph.Size; i++)
                 {
                     for (long j = 0; j < Graph.Size; j++)
@@ -66,13 +70,13 @@ namespace ShortestPath.Library
                             Graph[i].SetEdge(j, new Edge() //Change the old path(longer path) to new path(shorter path)
                             {
                                 Weight = Graph[i].Edges[k].Weight + Graph[k].Edges[j].Weight, // calculate the shorter path
-                                To = Graph[i].Name //Save the name of next path
+                                To = Graph[j].Name //Save the name of next path
                             });
-                            OnNewShortPathFound(new NewShortPathFoundEventArgs($"{Graph[i].Edges[k].To} => {Graph[i].Edges[j].To}"));
+                            Paths[i, j] = Graph[k].Name;
+                            OnNewShortPathFound(new NewShortPathFoundEventArgs($"{Graph[i].Name} => {Graph[k].Name} => {Graph[j].Name}"));
                         }
                     }
                 }
-                OnStepChanged(new StepChangedEventArgs(k)); //trigger the StepChanged event
             }
             OnEnd(); //trigger the End event
         }
@@ -81,9 +85,23 @@ namespace ShortestPath.Library
         protected virtual void OnStepChanged(StepChangedEventArgs ev) => StepChanged?.Invoke(this, ev);
         protected virtual void OnNewShortPathFound(NewShortPathFoundEventArgs ev) => NewShortPathFound?.Invoke(this, ev);
 
-        public string[] ShortestPath()
+        public string[] ShortestPath(long from, long to)
         {
-            throw new NotImplementedException();
+            List<string> path = new List<string>();
+            long iFR = from;
+            long iVE = to;
+            var node = Graph[iFR].Name;
+            path.Add(node);
+            while (true)
+            {
+                node = Paths[iFR, iVE];
+                if (Graph.VertexIndex(node) == iFR)
+                    break;
+                path.Add(node);
+                iFR = Graph.VertexIndex(node);
+            }
+            path.Add(Graph[to].Name);
+            return path.ToArray();
         }
     }
 }

@@ -125,5 +125,11 @@
   <ItemGroup>
     <Folder Include="bin\Debug\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ShortestPath.Library\ShortestPath.Library.csproj">
+      <Project>{d5f578bf-0cb0-4377-b0cb-80f27e4fa698}</Project>
+      <Name>ShortestPath.Library</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

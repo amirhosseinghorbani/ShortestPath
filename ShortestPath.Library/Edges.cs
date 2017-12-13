@@ -1,10 +1,13 @@
-﻿namespace ShortestPath.Library
+﻿using System.Collections;
+using System.Linq;
+
+namespace ShortestPath.Library
 {
     /*
      * Edges class manage the edges of a vertex.
      * It stores and reterives the edges of a vertex
      */
-    public class Edges
+    public class Edges : IEnumerable
     {
         private long eSize;
         private Edge[] edges; //
@@ -22,5 +25,9 @@
             edges = new Edge[ESize]; // make an array of edges.
         }
 
+        public IEnumerator GetEnumerator()
+        {
+            return this.edges.GetEnumerator();
+        }
     }
 }

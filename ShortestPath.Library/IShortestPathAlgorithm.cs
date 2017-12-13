@@ -8,7 +8,7 @@ namespace ShortestPath.Library
     {
         string Name { get; }
         void Execute();
-        string[] ShortestPath();
+        string[] ShortestPath(long from, long to);
         Graph Graph{ get; }
 
         event EventHandler Start;
