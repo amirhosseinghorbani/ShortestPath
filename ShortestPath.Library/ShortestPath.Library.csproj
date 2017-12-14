@@ -2,6 +2,23 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
+    <Authors>Amirhossein Ghorbani</Authors>
+    <Company>Amirhossein Ghorbani</Company>
+    <Product>ShortestPath Library</Product>
+    <Description>Shortest path library is a library to calculate the best paths of all pairs in a graph.</Description>
+    <Copyright>Free software</Copyright>
+    <PackageLicenseUrl>www.amirhosseinghorbani.com</PackageLicenseUrl>
+    <PackageProjectUrl>www.amirhosseinghorbani.com</PackageProjectUrl>
+    <PackageIconUrl>http://amirhosseinghorbani.com/Pictures/GetAuthor?Role=WebsiteLogo</PackageIconUrl>
+    <PackageTags>ShortestPath</PackageTags>
+    <PackageReleaseNotes>It's just developed to be used as an implementation of floyed warshall algorithm for my master.
+12/14/2017</PackageReleaseNotes>
+    <NeutralLanguage>en</NeutralLanguage>
+    <ApplicationIcon></ApplicationIcon>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>NETSTANDARD1_4</DefineConstants>
   </PropertyGroup>
 
 </Project>
