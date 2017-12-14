@@ -5,9 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.IO;
-using System.Threading;
 using Microsoft.Msagl.Drawing;
 using System.Data;
+using ShortestPath.Library;
+using System.Diagnostics;
+using System.Timers;
 
 namespace ShortestPath.Illustrator
 {
@@ -19,6 +21,7 @@ namespace ShortestPath.Illustrator
     public partial class MainWindow : Window
     {
         GraphFile GPH;
+        Stopwatch watch = new Stopwatch();
         public MainWindow()
         {
             InitializeComponent();
@@ -28,9 +31,12 @@ namespace ShortestPath.Illustrator
             GenerateGraph(graph);
             RefreshList();
         }
+
+
+
         private void GenerateGraph(GraphStructure stGraph)
         {
-            Graph graph = new Graph(stGraph.Header.GraphName);
+            Microsoft.Msagl.Drawing.Graph graph = new Microsoft.Msagl.Drawing.Graph(stGraph.Header.GraphName);
             if (stGraph.Records.Count > 1)
             {
                 for (int i = 0; i < stGraph.Records.Count; i++)
@@ -174,23 +180,15 @@ namespace ShortestPath.Illustrator
             }
             return gp;
         }
-        private void SetFloyedGraphToMatrix(Library.Graph graph)
-        {
-            GraphStructure gs = new GraphStructure();
-            gs.Header.GraphName = "dm";
-            foreach (var item in graph.Vertices.Select(x => new { Name = x.Name }).ToList())
-                gs.Header.AddVertex(item.Name);
-            for (int i = 0; i < graph.Size; i++)
-            {
-                GraphRecord record = new GraphRecord(graph[i].Name);
-                for (int j = 0; j < graph[i].Edges.ESize; j++)
-                    record.AddEdge(graph[i].Edges[j].Weight.ToString());
-                gs.AddRecord(record);
-            }
-            GPH.SetGraph(gs);
-            RefreshList();
-        }
         private void btnExecuteWarshall_Click(object sender, RoutedEventArgs e)
+        {
+            if (lst_matrix.Items.Count > 0)
+                FloyedWarshalExe();
+            else
+                MessageBox.Show("Matrix is null, add a graph then use the algorithm.");
+        }
+
+        private void FloyedWarshalExe()
         {
             try
             {
@@ -201,23 +199,49 @@ namespace ShortestPath.Illustrator
                 floyed.NewShortPathFound += new EventHandler<Library.NewShortPathFoundEventArgs>(Floyed_NewShortPathFound);
                 floyed.End += new EventHandler(Floyed_End);
                 floyed.Execute();
-                //SetFloyedGraphToMatrix(floyed.Graph);
-                var shortestpth = floyed.ShortestPath(3, 2);
-                StringBuilder bu = new StringBuilder();
-                foreach (var item in shortestpth)
-                    bu.Append($"/{item}");
-                txt_log.Text += $"\n{bu.ToString()}";
+                LogTheShortePaths(floyed);
+
             }
             catch (Exception ex)
             {
-                txt_log.Text += $"\n{ex.Message}";
+                txt_log.Dispatcher.Invoke(new Action(() =>
+                {
+                    txt_log.Text += $"\n{ex.Message}";
+                }));
             }
         }
 
+        private void LogTheShortePaths(FloyedWarshallAlgorithm floyed)
+        {
+            txt_log.Text += $"\n\n\n\nShortest paths are the below paths :";
+            for (int i = 0; i < floyed.Graph.Size; i++)
+            {
+                txt_log.Text += $"\nshortest paths to for ({floyed.Graph[i].Name}) are :";
+                for (int j = 0; j < floyed.Graph.Size; j++)
+                    if (i != j)
+                    {
+                        txt_log.Text += $"\n{floyed.Graph[i].Name} To {floyed.Graph[j].Name} is[{floyed.Graph[i].Edges[j].Weight}]: ";
+                        var source = floyed.Graph[i].Name;
+                        var destination = floyed.Graph[j].Name;
+                        var shortestPath = floyed.ShortestPath(i, j);
+                        for (int k = 0; k < shortestPath.Count(); k++)
+                            if (shortestPath.Count() - 1 == k)
+                                txt_log.Text += $"{shortestPath[k]}";
+                            else
+                                txt_log.Text += $"{shortestPath[k]} => ";
+                    }
+            }
+        }
+
+
         private void Floyed_End(object sender, EventArgs e)
         {
-            txt_log.Text += $"\nShortest path algorithm has ended.";
+            watch.Stop();
+            lbl_status.Text = $"Time of calculation: {watch.ElapsedMilliseconds}ms";
+            txt_log.Text += $"\nShortest path algorithm finished.";
             txt_log.Text += $"\nGraph processed in {steps} steps, {newPaths} paths has been found.";
+            txt_log.Text += $"\nTime of calcultion is {watch.ElapsedMilliseconds}ms.";
+            watch.Reset();
         }
 
         long newPaths = 0;
@@ -225,19 +249,23 @@ namespace ShortestPath.Illustrator
         private void Floyed_NewShortPathFound(object sender, Library.NewShortPathFoundEventArgs e)
         {
             txt_log.Text += $"\nNew short path has been found, ({e.newShortPath}).";
+            lbl_status.Text = $"{watch.ElapsedMilliseconds}ms";
             newPaths++;
         }
         private void Floyed_StepChanged(object sender, Library.StepChangedEventArgs e)
         {
             txt_log.Text += $"\nStep {e.step}!";
+            lbl_status.Text = $"{watch.ElapsedMilliseconds}ms";
             steps = e.step;
         }
 
         private void Floyed_Start(object sender, EventArgs e)
         {
+            watch.Start();
             txt_log.Text = "";
             newPaths = steps = 0;
             txt_log.Text += $"\nShortest path algorithm started.";
+            lbl_status.Text = $"{watch.ElapsedMilliseconds}ms";
         }
     }
 

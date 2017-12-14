@@ -95,7 +95,7 @@ namespace ShortestPath.Library
             while (true)
             {
                 node = Paths[iFR, iVE];
-                if (Graph.VertexIndex(node) == iFR)
+                if (Graph.VertexIndex(node) == iFR || node.Equals(UnknownPath))
                     break;
                 path.Add(node);
                 iFR = Graph.VertexIndex(node);

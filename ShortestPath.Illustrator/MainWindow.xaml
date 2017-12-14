@@ -6,11 +6,11 @@
         xmlns:gv="clr-namespace:Microsoft.Msagl.GraphViewerGdi;assembly=Microsoft.Msagl.GraphViewerGDI"
         xmlns:local="clr-namespace:ShortestPath.Illustrator"
         mc:Ignorable="d"
-        Title="Graph - Shortest Path in a graph" Height="800" Width="1024" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FF510455">
-    <Grid>
+        Title="Graph - Shortest Path of all pairs in a graph" Height="800" Width="1250.5" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FF510455">
+    <Grid Margin="0,0,-6,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="195*"/>
-            <ColumnDefinition Width="202*"/>
+            <ColumnDefinition Width="241*"/>
+            <ColumnDefinition Width="384*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="59*"/>
@@ -18,16 +18,16 @@
         </Grid.RowDefinitions>
         <Grid x:Name="grid_header" Margin="0" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="501*"/>
-                <ColumnDefinition Width="316*"/>
-                <ColumnDefinition Width="201*"/>
+                <ColumnDefinition Width="572*"/>
+                <ColumnDefinition Width="431*"/>
+                <ColumnDefinition Width="247*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="11*"/>
                 <RowDefinition Height="9*"/>
             </Grid.RowDefinitions>
             <TextBlock Margin="13,0,0,0" TextWrapping="Wrap" Text="Shortest Path Algorithm" Foreground="White" FontSize="24" TextDecorations="{x:Null}" Grid.RowSpan="2" Grid.ColumnSpan="3"/>
-            <Rectangle Fill="#FFF4F4F5" Height="1" Margin="0,0,0,34" Stroke="White" RenderTransformOrigin="0.5,0.5" Opacity="0.705" Grid.Row="1" Grid.ColumnSpan="3">
+            <Rectangle Fill="#FFF4F4F5" Margin="0,0,0,34" Stroke="White" RenderTransformOrigin="0.5,0.5" Opacity="0.705" Grid.Row="1" Grid.ColumnSpan="3">
                 <Rectangle.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleY="-1"/>
@@ -37,30 +37,41 @@
                     </TransformGroup>
                 </Rectangle.RenderTransform>
             </Rectangle>
-            <TextBlock Margin="33,4,0,6" TextWrapping="Wrap" Foreground="White" FontSize="18" TextDecorations="{x:Null}" Height="25" Grid.Row="1" Grid.ColumnSpan="3"><Run Text="- Floyed Warshall Algorithm"/></TextBlock>
-            <Rectangle Fill="#FFF4F4F5" Stroke="White" Width="1" HorizontalAlignment="Right" Margin="0,1,200,0" VerticalAlignment="Top" Height="35" Grid.Row="1" Grid.Column="2"/>
-            <Button x:Name="btnExecuteWarshall" Content="Execute Floyed Warshall Algorithm" Grid.Column="2" Margin="0" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FF14BF14" Click="btnExecuteWarshall_Click"/>
-            <TextBox x:Name="txt_log" Grid.Column="1" Margin="0" TextWrapping="Wrap" VerticalContentAlignment="Stretch" IsReadOnly="True" Grid.RowSpan="2"/>
-            <TextBlock Margin="4,0" TextWrapping="Wrap" Foreground="White" FontSize="18" TextDecorations="{x:Null}" Height="25" Grid.Column="2" TextAlignment="Center"/>
+            <TextBlock Margin="33,4,0,6" TextWrapping="Wrap" Foreground="White" FontSize="18" TextDecorations="{x:Null}" Grid.Row="1" Grid.ColumnSpan="3"><Run Text="- Floyed Warshall Algorithm"/></TextBlock>
+            <Button x:Name="btnExecuteWarshall" Content="Execute Floyed Warshall Algorithm" Margin="207,4,14,6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FF14BF14" Click="btnExecuteWarshall_Click" Grid.Column="1" Grid.Row="1"/>
+            <TextBlock x:Name="lbl_status" Margin="416,668,4,-668" TextWrapping="Wrap" Foreground="White" FontSize="18" TextDecorations="{x:Null}" Grid.Column="1" TextAlignment="Center" Grid.Row="1" Grid.ColumnSpan="2"/>
         </Grid>
         <Grid x:Name="grid_graph" Margin="0" Grid.Row="1">
             <WindowsFormsHost Name="winFormHost" Margin="0" Background="#FF510455">
                 <gv:GViewer x:Name="gViewer"></gv:GViewer>
             </WindowsFormsHost>
         </Grid>
-        <Grid x:Name="grid_matrix_control" Grid.Column="1" Margin="0" Grid.Row="1">
+        <Grid x:Name="grid_matrix_control" Margin="0" Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="65*"/>
+                <ColumnDefinition Width="31*"/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="611*"/>
                 <RowDefinition Height="80*"/>
             </Grid.RowDefinitions>
-            <Grid x:Name="grid_matrix" Margin="0">
+            <Grid x:Name="grid_matrix" Margin="0,0,7,0" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="513*"/>
+                    <ColumnDefinition Width="256*"/>
+                </Grid.ColumnDefinitions>
                 <DataGrid x:Name="lst_matrix" Margin="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" IsReadOnly="True"/>
+                <TextBox x:Name="txt_log" Grid.Column="1" Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" IsReadOnly="True" TextAlignment="Justify" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Auto"/>
             </Grid>
-            <Grid x:Name="grid_control" Margin="0" Grid.Row="1">
+            <Grid x:Name="grid_control" Margin="0" Grid.Row="1" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="65*"/>
+                    <ColumnDefinition Width="31*"/>
+                </Grid.ColumnDefinitions>
                 <Button x:Name="btn_openFromFile" Content="Oepn Graph Matirix From File" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="171" Height="27" Click="btn_openFromFile_Click"/>
-                <Button x:Name="btn_addVertex" Content="Add Vertex" HorizontalAlignment="Left" Margin="395,10,0,0" VerticalAlignment="Top" Width="118" Height="27" Click="btn_addVertex_Click"/>
-                <Button x:Name="btn_Edges" Content="Edges" HorizontalAlignment="Left" Margin="395,45,0,0" VerticalAlignment="Top" Width="118" Height="27" Click="btn_addEdge_Click"/>
-                <Button x:Name="btn_cleanGraph" Content="Clean Graph" HorizontalAlignment="Left" Margin="284,10,0,0" VerticalAlignment="Top" Width="106" Height="27" Click="btn_cleanGraph_Click"/>
+                <Button x:Name="btn_addVertex" Content="Add Vertex" HorizontalAlignment="Left" Margin="377,10,0,0" VerticalAlignment="Top" Width="118" Height="27" Click="btn_addVertex_Click"/>
+                <Button x:Name="btn_Edges" Content="Edges" HorizontalAlignment="Left" Margin="377,45,0,0" VerticalAlignment="Top" Width="118" Height="27" Click="btn_addEdge_Click"/>
+                <Button x:Name="btn_cleanGraph" Content="Clean Graph" HorizontalAlignment="Left" Margin="266,10,0,0" VerticalAlignment="Top" Width="106" Height="27" Click="btn_cleanGraph_Click"/>
                 <Button x:Name="btn_saveGraph" Content="Save the graph file" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Width="171" Height="27" Click="btn_saveGraph_Click"/>
             </Grid>
         </Grid>
