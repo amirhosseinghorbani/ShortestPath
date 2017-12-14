@@ -267,6 +267,12 @@ namespace ShortestPath.Illustrator
             txt_log.Text += $"\nShortest path algorithm started.";
             lbl_status.Text = $"{watch.ElapsedMilliseconds}ms";
         }
+
+        private void img_about_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            AboutAuthor about = new AboutAuthor();
+            about.ShowDialog();
+        }
     }
 
 

@@ -67,6 +67,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="AboutAuthor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="AddEdge.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -79,6 +83,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="AboutAuthor.xaml.cs">
+      <DependentUpon>AboutAuthor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddEdge.xaml.cs">
       <DependentUpon>AddEdge.xaml</DependentUpon>
     </Compile>
@@ -130,6 +137,9 @@
       <Project>{d5f578bf-0cb0-4377-b0cb-80f27e4fa698}</Project>
       <Name>ShortestPath.Library</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

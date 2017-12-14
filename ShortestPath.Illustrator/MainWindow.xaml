@@ -6,19 +6,21 @@
         xmlns:gv="clr-namespace:Microsoft.Msagl.GraphViewerGdi;assembly=Microsoft.Msagl.GraphViewerGDI"
         xmlns:local="clr-namespace:ShortestPath.Illustrator"
         mc:Ignorable="d"
-        Title="Graph - Shortest Path of all pairs in a graph" Height="800" Width="1250.5" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FF510455">
+        Title="Graph - Shortest Path of all pairs in a graph" Height="800" Width="1250.5" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FF510455" Icon="img/logo.png">
     <Grid Margin="0,0,-6,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="241*"/>
-            <ColumnDefinition Width="384*"/>
+            <ColumnDefinition Width="213*"/>
+            <ColumnDefinition Width="269*"/>
+            <ColumnDefinition Width="768*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="59*"/>
             <RowDefinition Height="512*"/>
         </Grid.RowDefinitions>
-        <Grid x:Name="grid_header" Margin="0" Grid.ColumnSpan="2">
+        <Grid x:Name="grid_header" Margin="0" Grid.ColumnSpan="3">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="572*"/>
+                <ColumnDefinition Width="213*"/>
+                <ColumnDefinition Width="359*"/>
                 <ColumnDefinition Width="431*"/>
                 <ColumnDefinition Width="247*"/>
             </Grid.ColumnDefinitions>
@@ -26,8 +28,8 @@
                 <RowDefinition Height="11*"/>
                 <RowDefinition Height="9*"/>
             </Grid.RowDefinitions>
-            <TextBlock Margin="13,0,0,0" TextWrapping="Wrap" Text="Shortest Path Algorithm" Foreground="White" FontSize="24" TextDecorations="{x:Null}" Grid.RowSpan="2" Grid.ColumnSpan="3"/>
-            <Rectangle Fill="#FFF4F4F5" Margin="0,0,0,34" Stroke="White" RenderTransformOrigin="0.5,0.5" Opacity="0.705" Grid.Row="1" Grid.ColumnSpan="3">
+            <TextBlock Margin="8,0,-208,0" TextWrapping="Wrap" Text="Shortest Path Algorithm" Foreground="White" FontSize="24" TextDecorations="{x:Null}" Grid.RowSpan="2" Grid.ColumnSpan="3" Grid.Column="1"/>
+            <Rectangle Fill="#FFF4F4F5" Margin="2,0,0,34" Stroke="White" RenderTransformOrigin="0.5,0.5" Opacity="0.705" Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="1">
                 <Rectangle.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleY="-1"/>
@@ -37,16 +39,17 @@
                     </TransformGroup>
                 </Rectangle.RenderTransform>
             </Rectangle>
-            <TextBlock Margin="33,4,0,6" TextWrapping="Wrap" Foreground="White" FontSize="18" TextDecorations="{x:Null}" Grid.Row="1" Grid.ColumnSpan="3"><Run Text="- Floyed Warshall Algorithm"/></TextBlock>
-            <Button x:Name="btnExecuteWarshall" Content="Execute Floyed Warshall Algorithm" Margin="207,4,14,6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FF14BF14" Click="btnExecuteWarshall_Click" Grid.Column="1" Grid.Row="1"/>
-            <TextBlock x:Name="lbl_status" Margin="416,668,4,-668" TextWrapping="Wrap" Foreground="White" FontSize="18" TextDecorations="{x:Null}" Grid.Column="1" TextAlignment="Center" Grid.Row="1" Grid.ColumnSpan="2"/>
+            <TextBlock Margin="6,4,-186,6" TextWrapping="Wrap" Foreground="White" FontSize="18" TextDecorations="{x:Null}" Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="1"><Run Text="Floyed Warshall Algorithm"/></TextBlock>
+            <Button x:Name="btnExecuteWarshall" Content="Execute Floyed Warshall Algorithm" Margin="207,4,14,6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FF14BF14" Click="btnExecuteWarshall_Click" Grid.Column="2" Grid.Row="1"/>
+            <TextBlock x:Name="lbl_status" Margin="416,668,4,-668" TextWrapping="Wrap" Foreground="White" FontSize="18" TextDecorations="{x:Null}" Grid.Column="2" TextAlignment="Center" Grid.Row="1" Grid.ColumnSpan="2"/>
+            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="80" Grid.RowSpan="2" Stroke="White" VerticalAlignment="Top" Width="1" Margin="1,0,0,0" Grid.Column="1"/>
         </Grid>
-        <Grid x:Name="grid_graph" Margin="0" Grid.Row="1">
+        <Grid x:Name="grid_graph" Margin="0" Grid.Row="1" Grid.ColumnSpan="2">
             <WindowsFormsHost Name="winFormHost" Margin="0" Background="#FF510455">
                 <gv:GViewer x:Name="gViewer"></gv:GViewer>
             </WindowsFormsHost>
         </Grid>
-        <Grid x:Name="grid_matrix_control" Margin="0" Grid.Row="1" Grid.Column="1">
+        <Grid x:Name="grid_matrix_control" Margin="0" Grid.Row="1" Grid.Column="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="65*"/>
                 <ColumnDefinition Width="31*"/>
@@ -75,6 +78,7 @@
                 <Button x:Name="btn_saveGraph" Content="Save the graph file" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Width="171" Height="27" Click="btn_saveGraph_Click"/>
             </Grid>
         </Grid>
+        <Image x:Name="img_about" Margin="0,1" Source="img/logo.png" ToolTip="www.amirhosseinghorbani.com" Cursor="Hand" MouseDown="img_about_MouseDown" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
     </Grid>
 </Window>
