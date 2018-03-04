@@ -14,7 +14,7 @@
     <PackageReleaseNotes>It's just developed to be used as an implementation of floyed warshall algorithm for my master.
 12/14/2017</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
-    <ApplicationIcon></ApplicationIcon>
+    <ApplicationIcon>logo_icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
